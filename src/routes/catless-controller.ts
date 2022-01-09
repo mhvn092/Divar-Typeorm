@@ -40,6 +40,8 @@ router.get("/:name", async (req, res) => {
                     const ad = new AdEntity();
                     ad.title = item.data.title;
                     await adservice.insert(ad);
+                    adservice.addCategory(ad,cat);
+                    categoryservice.CategoryAdPlus(cat,ad);
                     return res.json(ad);
                 }, 10000);
             })
