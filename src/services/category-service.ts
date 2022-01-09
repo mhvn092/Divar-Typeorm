@@ -1,3 +1,4 @@
+import { AdEntity } from "../entities/ad";
 import { CategoryEntity } from "../entities/category";
 
 export class CategoryService {
@@ -23,4 +24,17 @@ export class CategoryService {
         const cat = await CategoryEntity.delete(id)
         return cat;
     }
+    public async CategoryAdPlus(category: CategoryEntity, ad: AdEntity) {
+        console.log(category.ad);
+        if (category.ad != undefined) {
+          console.log("if 1", category.ad);
+          category.ad.push(ad);
+        } else {
+            category.ad = [ad];
+        }
+    
+        await category.save();
+    
+        return category;
+      }
 }

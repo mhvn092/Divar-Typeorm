@@ -1,4 +1,5 @@
 import { AdEntity } from "../entities/ad";
+import { CategoryEntity } from "../entities/category";
 
 export class AdService {
 public async insert(data : AdEntity){
@@ -24,5 +25,18 @@ public async delete(id:number){
     return ad;
 }
 
+public async addCategory(ad: AdEntity, category: CategoryEntity) {
+    console.log(ad.category);
+    if (ad.category != undefined) {
+      console.log("if 1", ad.category);
+      ad.category.push(category);
+    } else {
+        ad.category = [category];
+    }
+
+    await ad.save();
+
+    return ad;
+  }
 
 }
