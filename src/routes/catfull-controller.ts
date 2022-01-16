@@ -5,9 +5,8 @@ import { CategoryEntity } from "../entities/category";
 import { AdService } from "../services/ad-service";
 import { CategoryService } from "../services/category-service";
 
-const app =express();
 const router = express.Router();
-app.use(express.json());
+router.use(express.json());
 
 const adservice = new AdService();
 const categoryservice = new CategoryService();
@@ -54,20 +53,23 @@ router.get("/:name/:name2", async (req, res) => {
         if (!response) {
             res.status(404).send('no such product');
         } else {
-            setInterval(async () => {
-                const cat = new CategoryEntity();
+            const cat = new CategoryEntity();
                 cat.name = name2;
                 await categoryservice.insert(cat);
+           // setInterval(async () => {
                 const json = JSON.parse(response.body);
                 json.widget_list.forEach(async (item: { data: { title: any }; }) => {
                     const ad = new AdEntity();
                     ad.title = item.data.title;
                     await adservice.insert(ad);
                     await adservice.addCategory(ad,cat);
+                    console.log('past the first');
                     await categoryservice.CategoryAdPlus(cat,ad);
-                    return res.json(ad);
-                }, 10000);
+                    console.log('pass the second')
+
+            //    }, 1000000000);
             })
+            return res.send('done');
         }
     } catch (error) {
         console.log(error);

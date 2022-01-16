@@ -26,17 +26,17 @@ public async delete(id:number){
 }
 
 public async addCategory(ad: AdEntity, category: CategoryEntity) {
-    console.log(ad.category);
+    //console.log(ad.category);
     if (ad.category != undefined) {
-      console.log("if 1", ad.category);
+     // console.log("if 1", ad.category);
       ad.category.push(category);
-    } else {
+   } else {
         ad.category = [category];
-    }
+   }
 
     await ad.save();
 
-    return ad;
+   return ad;
   }
 
 }

@@ -31,7 +31,7 @@ router.get("/:name", async (req, res) => {
         if (!response) {
             res.status(404).send('no such product');
         } else {
-            setInterval(async () => {
+        //    setInterval(async () => {
                 const cat = new CategoryEntity();
                 cat.name = name1;
                 await categoryservice.insert(cat);
@@ -41,10 +41,12 @@ router.get("/:name", async (req, res) => {
                     ad.title = item.data.title;
                     await adservice.insert(ad);
                     await adservice.addCategory(ad,cat);
+                    console.log('pass the first');
                     await categoryservice.CategoryAdPlus(cat,ad);
-                    return res.json(ad);
-                }, 10000);
+                    console.log('pass the second');
+          //      }, 10000);
             })
+            return res.send('done');
         }
     } catch (error) {
         console.log(error);

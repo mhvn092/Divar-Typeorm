@@ -25,12 +25,12 @@ export class CategoryService {
         return cat;
     }
     public async CategoryAdPlus(category: CategoryEntity, ad: AdEntity) {
-        console.log(category.ad);
-        if (category.ad != undefined) {
-          console.log("if 1", category.ad);
+      //  console.log(category.ad);
+       if (category.ad != undefined) {
+        //  console.log("if 1", category.ad);
           category.ad.push(ad);
         } else {
-            category.ad = [ad];
+           category.ad = [ad];
         }
     
         await category.save();
